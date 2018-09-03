@@ -26,6 +26,8 @@ pipeline {
 
                     junit '**/target/*-reports/TEST-*.xml'
 
+                    step([$class: 'CoberturaPublisher', coberturaReportFile: 'target/site/cobertura/coverage.xml'])
+
                 }
 
             }
