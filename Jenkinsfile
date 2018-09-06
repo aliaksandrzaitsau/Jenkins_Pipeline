@@ -6,7 +6,7 @@ pipeline {
 
         jdk 'jdk8'
 
-        maven 'maven3'
+        maven 'maven3.5.4'
 
     }
 
