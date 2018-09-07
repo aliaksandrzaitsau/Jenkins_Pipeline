@@ -15,7 +15,7 @@ pipeline {
 
             steps {
 
-                echo "Hello world"
+                sh "clean test"
 
             }
 
