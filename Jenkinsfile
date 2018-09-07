@@ -1,39 +1,5 @@
-pipeline {
-
-    agent any
-
-    tools {
-
-        jdk 'jdk8'
-
-        maven 'maven3.5.4'
-
-    }
-
-    stages {
-
-        stage('Install') {
-
-            steps {
-
-                sh "mvn -U clean test cobertura:cobertura -Dcobertura.report.format=xml"
-
-            }
-
-            post {
-
-                always {
-
-                    junit '**/target/*-reports/TEST-*.xml'
-
-                    step([$class: 'CoberturaPublisher', coberturaReportFile: 'target/site/cobertura/coverage.xml'])
-
-                }
-
-            }
-
-        }
-
-    }
-
+stage('Initialize'){
+    def dockerHome = tool 'mydocker'
+    def mavenHome  = tool 'maven3.5.4'
+    env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
 }
