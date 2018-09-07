@@ -1,4 +1,5 @@
 pipeline {
+
     agent any
 
     tools {
@@ -11,11 +12,25 @@ pipeline {
 
     stages {
 
-        stage('Install') {
+        stage('test java installation') {
 
             steps {
 
-                sh "mvn test"
+                sh 'java -version'
+
+                sh 'which java'
+
+            }
+
+        }
+
+        stage('test maven installation') {
+
+            steps {
+
+                sh 'mvn -version'
+
+                sh 'which mvn'
 
             }
 
