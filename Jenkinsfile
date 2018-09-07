@@ -1,5 +1,26 @@
-stage('Initialize'){
-    def dockerHome = tool 'mydocker'
-    def mavenHome  = tool 'maven3.5.4'
-    env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
+pipeline {
+    agent any
+
+    tools {
+
+        jdk 'jdk8'
+
+        maven 'maven3'
+
+    }
+
+    stages {
+
+        stage('Install') {
+
+            steps {
+
+                echo "Hello world"
+
+            }
+
+        }
+
+    }
+
 }
