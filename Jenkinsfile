@@ -1,41 +1,12 @@
 pipeline {
-
-    agent any
-
-    tools {
-
-        jdk 'jdk8'
-
-        maven 'maven3.5.4'
-
+    agent {
+        docker { image 'node:7-alpine' }
     }
-
     stages {
-
-        stage('test java installation') {
-
+        stage('Test') {
             steps {
-
-                sh 'java -version'
-
-                sh 'which java'
-
+                sh 'node --version'
             }
-
         }
-
-        stage('test maven installation') {
-
-            steps {
-
-                sh 'mvn -version'
-
-                sh 'which mvn'
-
-            }
-
-        }
-
     }
-
 }
