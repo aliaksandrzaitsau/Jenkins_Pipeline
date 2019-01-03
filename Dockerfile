@@ -19,6 +19,3 @@ RUN mkdir $PROJECT_VOLUME
 RUN mkdir $PROJECT_HOME
 RUN mkdir $PROJECT_SRC
 RUN mkdir $PROJECT_LOG
-COPY start.sh /opt/scripts/
-CMD ["/opt/scripts/start.sh"]
-
