@@ -20,11 +20,11 @@ node {
         stage ('Build and Run Mongo:3.6') {
 		    sh "docker run -d -t --name $MONGO_VAR mongo:3.6"
 		    sh '''importMongoCollections() {
-                        local list_of_collections=($(docker exec $mongo_container_name ls /opt/mongo_collections))
+                        local list_of_collections=($(docker exec $image_name ls /opt/mongo_collections))
                         for collection_json_name in ${list_of_collections[*]}
                         do
                         only_name=${collection_json_name%.*}
-                        docker exec $mongo_container_name mongoimport -d $dbname -c $only_name /opt/mongo_collections/$collection_json_name
+                        docker exec $image_name mongoimport -d $dbname -c $only_name /opt/mongo_collections/$collection_json_name
                         done
                      }'''
 		}	
