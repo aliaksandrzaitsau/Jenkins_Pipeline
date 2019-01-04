@@ -21,7 +21,7 @@ node {
         stage ('Build and Run Mongo:3.6') {
 		    sh "docker run -d -t --name $MONGO_VAR mongo:3.6"
 	}	   
-	stage ('Import Mongo Collections')
+	stage ('Import Mongo Collections') {
 	            sh "docker cp $thisDir/mongo/mongo_collections $MONGO_VAR:/opt/"
 		    sh '''importMongoCollections() {
                         local list_of_collections=($(docker exec $MONGO_VAR ls /opt/mongo_collections))
