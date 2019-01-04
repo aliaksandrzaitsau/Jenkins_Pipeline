@@ -7,8 +7,9 @@ node {
         	checkout scm
         }
         stage ('Build') {
-		dir ('/root/Jenkins_Pipeline/')
-        	sh "pwd"
+		dir ('/root/Jenkins_Pipeline/'){
+        	    sh "pwd"
+		}	
         }
         stage ('Tests') {
 	        parallel 'static': {
