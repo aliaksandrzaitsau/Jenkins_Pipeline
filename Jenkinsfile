@@ -4,7 +4,8 @@ node {
     env.dbname="jobfinder"
     env.prefix_name="test_env_backend"
     env.image_name="test_env_backend"
-    env.forwarded_port_app=10000    
+    env.forwarded_port_app=10000
+    env.thisDir="/home/azaitsau/Jenkins_Pipeline/"	    
     }
 
  	// Clean workspace before doing anything
@@ -19,6 +20,7 @@ node {
 	    sh "docker stop $image_name && docker rm $image_name"
         stage ('Build and Run Mongo:3.6') {
 		    sh "docker run -d -t --name $MONGO_VAR mongo:3.6"
+		    sh "docker cp $thisDir/mongo/mongo_collections $MONGO_VAR:/opt/"
 		    sh '''importMongoCollections() {
                         local list_of_collections=($(docker exec $MONGO_VAR ls /opt/mongo_collections))
                         for collection_json_name in ${list_of_collections[*]}
