@@ -7,8 +7,8 @@ node {
         	checkout scm
         }
         stage ('Build') {
-		dir (/root/Jenkins_Pipeline/Dockerfile)
-        	sh "bash docker build"
+		dir ('/root/Jenkins_Pipeline/')
+        	sh "pwd"
         }
         stage ('Tests') {
 	        parallel 'static': {
