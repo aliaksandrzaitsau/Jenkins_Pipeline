@@ -1,4 +1,8 @@
 node {
+    stage('Preparation'){
+    env.MONGO_VAR = "pip_test_mongo"
+    }
+
  	// Clean workspace before doing anything
     deleteDir()
 
@@ -9,7 +13,7 @@ node {
         stage ('Build') {
 		dir ('/home/azaitsau/Jenkins_Pipeline/'){
         	    sh "pwd"
-		    sh "docker run -d -t --name pip_test_mongo mongo:3.6"	
+		    sh "docker run -d -t --name $MONGO_VAR mongo:3.6"	
 		    sh "docker build -t pip_test_back ."
 		    sh "docker run -d -p 10000:8080 --name pip_test_back pip_test_back"	
 		}	
