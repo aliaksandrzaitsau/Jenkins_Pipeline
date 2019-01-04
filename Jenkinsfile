@@ -2,9 +2,9 @@ node {
     stage('Preparation'){
     env.MONGO_VAR = "pip_test_mongo"
     env.dbname="jobfinder"
-    env.prefix_name="test_env_backend"
-    env.image_name="test_env_backend"
-    env.forwarded_port_app=10000
+    env.prefix_name="pip_env_backend"
+    env.image_name="pip_env_backend"
+    env.forwarded_port_app=15000
     env.thisDir="/home/azaitsau/Jenkins_Pipeline/"	    
     }
 
