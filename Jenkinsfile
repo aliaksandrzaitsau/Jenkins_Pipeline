@@ -18,14 +18,25 @@ node {
 	    sh "docker stop $MONGO_VAR && docker rm $MONGO_VAR"
 	    sh "docker stop $image_name && docker rm $image_name"
         stage ('Build and Run Mongo:3.6') {
-		    sh "docker run -d -t --name $MONGO_VAR mongo:3.6"		
+		    sh "docker run -d -t --name $MONGO_VAR mongo:3.6"
+		    sh '''importMongoCollections() {
+    local list_of_collections=($(docker exec $mongo_container_name ls /opt/mongo_collections))
+
+    for collection_json_name in ${list_of_collections[*]}
+    do
+        only_name=${collection_json_name%.*}
+        docker exec $mongo_container_name mongoimport -d $dbname -c $only_name /opt/mongo_collections/$collection_json_name
+    done
+}
+'''
 		}	
 	stage ('Build and Application') {
 		dir ('/home/azaitsau/Jenkins_Pipeline/'){	
 		    sh "docker build -t $image_name ."
 		    sh "docker run -d -p $forwarded_port_app:8080 --name $image_name $image_name"	
 		}	
-        }    
+        }
+	    	
         stage ('Tests') {
 	        parallel 'static': {
 	            sh "echo 'shell scripts to run static tests...'"
