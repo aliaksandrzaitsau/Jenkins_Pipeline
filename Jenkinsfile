@@ -23,7 +23,7 @@ node {
 	}	   
 	stage ('Import Mongo Collections') {
 	            sh "docker cp $thisDir/mongo/mongo_collections $MONGO_VAR:/opt/"
-		    sh '''importMongoCollections() {
+		    def '''importMongoCollections() {
                         local list_of_collections=($(docker exec $MONGO_VAR ls /opt/mongo_collections))
                         for collection_json_name in ${list_of_collections[*]}
                         do
