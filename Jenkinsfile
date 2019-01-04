@@ -14,14 +14,16 @@ node {
         stage ('Clone') {
         	checkout scm
         }
-        stage ('Build') {
-		dir ('/home/azaitsau/Jenkins_Pipeline/'){
-        	    sh "pwd"
-		    sh "docker run -d -t --name $MONGO_VAR mongo:3.6"	
+        stage ('Build and Run Mongo:3.6') {
+		    sh "docker run -d -t --name $MONGO_VAR mongo:3.6"		
+		}	
+        }
+	stage ('Build and Application') {
+		dir ('/home/azaitsau/Jenkins_Pipeline/'){	
 		    sh "docker build -t $image_name ."
 		    sh "docker run -d -p $forwarded_port_app:8080 --name $image_name $image_name"	
 		}	
-        }
+        }    
         stage ('Tests') {
 	        parallel 'static': {
 	            sh "echo 'shell scripts to run static tests...'"
