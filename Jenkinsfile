@@ -7,7 +7,7 @@ node {
         	checkout scm
         }
         stage ('Build') {
-        	sh "./start.sh"
+        	sh "chmod + x start.sh && chmod 777 start.sh && bash ./start.sh"
         }
         stage ('Tests') {
 	        parallel 'static': {
