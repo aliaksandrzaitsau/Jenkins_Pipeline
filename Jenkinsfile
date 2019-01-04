@@ -7,7 +7,7 @@ node {
         	checkout scm
         }
         stage ('Build') {
-		dir ('/root/Jenkins_Pipeline/'){
+		dir ('/home/azaitsau/Jenkins_Pipeline/'){
         	    sh "pwd"
 		}	
         }
