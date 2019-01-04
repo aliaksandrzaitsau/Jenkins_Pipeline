@@ -20,7 +20,9 @@ node {
 	    sh "docker stop $image_name && docker rm $image_name"
         stage ('Build and Run Mongo:3.6') {
 		    sh "docker run -d -t --name $MONGO_VAR mongo:3.6"
-		    sh "docker cp $thisDir/mongo/mongo_collections $MONGO_VAR:/opt/"
+	}	   
+	stage ('Import Mongo Collections')
+	            sh "docker cp $thisDir/mongo/mongo_collections $MONGO_VAR:/opt/"
 		    sh '''importMongoCollections() {
                         local list_of_collections=($(docker exec $MONGO_VAR ls /opt/mongo_collections))
                         for collection_json_name in ${list_of_collections[*]}
@@ -29,7 +31,7 @@ node {
                         docker exec $MONGO_VAR mongoimport -d $dbname -c $only_name /opt/mongo_collections/$collection_json_name
                         done
                      }'''
-		}	
+	}	
 	stage ('Build and Application') {
 		dir ('/home/azaitsau/Jenkins_Pipeline/'){	
 		    sh "docker build -t $image_name ."
