@@ -23,14 +23,14 @@ node {
 	}	   
 	stage ('Import Mongo Collections') {
 	            sh "docker cp $thisDir/mongo/mongo_collections $MONGO_VAR:/opt/"
-		    def '''importMongoCollections() {
+		    def importMongoCollections = '''\
                         local list_of_collections=($(docker exec $MONGO_VAR ls /opt/mongo_collections))
                         for collection_json_name in ${list_of_collections[*]}
                         do
                         only_name=${collection_json_name%.*}
                         docker exec $MONGO_VAR mongoimport -d $dbname -c $only_name /opt/mongo_collections/$collection_json_name
                         done
-                     }'''
+                     '''
 	}	
 	stage ('Build and Application') {
 		dir ('/home/azaitsau/Jenkins_Pipeline/'){	
