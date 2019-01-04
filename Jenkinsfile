@@ -1,6 +1,10 @@
 node {
     stage('Preparation'){
     env.MONGO_VAR = "pip_test_mongo"
+    env.dbname="jobfinder"
+    env.prefix_name="test_env_backend"
+    env.image_name="test_env_backend"
+    env.forwarded_port_app=10000    
     }
 
  	// Clean workspace before doing anything
@@ -14,8 +18,8 @@ node {
 		dir ('/home/azaitsau/Jenkins_Pipeline/'){
         	    sh "pwd"
 		    sh "docker run -d -t --name $MONGO_VAR mongo:3.6"	
-		    sh "docker build -t pip_test_back ."
-		    sh "docker run -d -p 10000:8080 --name pip_test_back pip_test_back"	
+		    sh "docker build -t $image_name ."
+		    sh "docker run -d -p $forwarded_port_app:8080 --name $image_name $image_name"	
 		}	
         }
         stage ('Tests') {
