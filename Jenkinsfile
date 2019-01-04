@@ -9,6 +9,7 @@ node {
         stage ('Build') {
 		dir ('/home/azaitsau/Jenkins_Pipeline/'){
         	    sh "pwd"
+		    sh "docker build ."	
 		}	
         }
         stage ('Tests') {
