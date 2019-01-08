@@ -5,7 +5,7 @@ node {
     env.prefix_name="pip_env_backend"
     env.image_name="pip_env_backend"
     env.forwarded_port_app=15000
-    env.thisDir="/home/azaitsau/Jenkins_Pipeline/"	    
+    env.thisDir="/opt/CI_jobfinder/devops_env/backend/" \\ home/azaitsau/Jenkins_Pipeline/
     }
 
  	// Clean workspace before doing anything
@@ -33,7 +33,7 @@ node {
                      '''
 	}	
 	stage ('Build and Application') {
-		dir ('/home/azaitsau/Jenkins_Pipeline/'){	
+		dir ('/opt/CI_jobfinder/devops_env/backend/'){	
 		    sh "docker build -t $image_name ."
 		    sh "docker run -d -p $forwarded_port_app:8080 --name $image_name $image_name"	
 		}	
