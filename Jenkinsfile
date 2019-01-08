@@ -41,7 +41,7 @@ node {
 	stage ('Run an Application') {
  		    sh "docker run -d -v $WORKSPACE:/opt/project_volume/ -p $forwarded_port_app:8080 --network $docker_network --hostname $image_name --name $image_name $image_name"	
 		}	
-        }  
+          
 	    	
         stage ('Tests') {
 	        parallel 'static': {
