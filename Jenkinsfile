@@ -33,12 +33,15 @@ node {
                         done
                      '''
 	}	
-	stage ('Build and Application') {
+	stage ('Build an Application') {
 		dir ('/opt/CI_jobfinder/devops_env/backend/'){	
 		    sh "docker build -t $image_name ."
- 		    sh "docker run -d -v $WORKSPACE:/opt/project_volume/ -p $forwarded_port_app:8080 --network $docker_network --hostname $image_name --name $image_name $image_name"	
 		}	
         }
+	stage ('Run an Application') {
+ 		    sh "docker run -d -v $WORKSPACE:/opt/project_volume/ -p $forwarded_port_app:8080 --network $docker_network --hostname $image_name --name $image_name $image_name"	
+		}	
+        }  
 	    	
         stage ('Tests') {
 	        parallel 'static': {
