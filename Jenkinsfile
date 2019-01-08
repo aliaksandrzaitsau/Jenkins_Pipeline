@@ -16,7 +16,7 @@ node {
         	checkout scm
         }
 	stage ('Delete old containers before starting')
-	    // sh "docker stop $MONGO_VAR && docker rm $MONGO_VAR"
+	     sh "docker stop $MONGO_VAR && docker rm $MONGO_VAR"
 	    // sh "docker stop $image_name && docker rm $image_name"
         stage ('Build and Run Mongo:3.6') {
 		    sh "docker run -d -t --name $MONGO_VAR mongo:3.6"
