@@ -1,6 +1,7 @@
 node {
     stage('Preparation'){
     env.MONGO_VAR = "pip_test_mongo"
+    env.docker_network="jobfinder_network"	    
     env.dbname="jobfinder"
     env.prefix_name="pip_env_backend"
     env.image_name="pip_env_backend"
@@ -17,9 +18,9 @@ node {
         }
 	stage ('Delete old containers before starting')
 	     sh "docker stop $MONGO_VAR && docker rm $MONGO_VAR"
-	    // sh "docker stop $image_name && docker rm $image_name"
+	     sh "docker stop $image_name && docker rm $image_name"
         stage ('Build and Run Mongo:3.6') {
-		    sh "docker run -d -t --name $MONGO_VAR mongo:3.6"
+  		    sh "docker run -d -t --name $MONGO_VAR --hostname $MONGO_VAR --network $docker_network mongo:3.6"
 	}	   
 	stage ('Import Mongo Collections') {
 	            sh "docker cp $thisDir/mongo/mongo_collections $MONGO_VAR:/opt/"
