@@ -10,3 +10,14 @@ RUN yum install -y wget && \
     rm -f jdk-11.0.1_linux-x64_bin.tar.gz
 ENV JAVA_HOME=/opt/jdk-11.0.1
 ENV PATH="$JAVA_HOME/bin:$PATH"
+
+ENV PROJECT_VOLUME /opt/project_volume
+ENV PROJECT_HOME /opt/project
+ENV PROJECT_SRC /opt/project/src
+ENV PROJECT_LOG /opt/project/log
+RUN mkdir $PROJECT_VOLUME
+RUN mkdir $PROJECT_HOME
+RUN mkdir $PROJECT_SRC
+RUN mkdir $PROJECT_LOG
+COPY start.sh /opt/scripts/
+CMD ["/opt/scripts/start.sh"]
